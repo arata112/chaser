@@ -21,37 +21,59 @@ def main():
     value = [] # フィールド情報を保存するリスト
     client = CHaser.Client() # サーバーと通信するためのインスタンス"
     muki = "down" # mukiをdownにする
-    rannsuu = 0
-    purasu = 1
+    turn = 0
 
     while(True):
-        rand  = random.randint(0,3)
-        #value = client.get_ready() # サーバーに行動準備が完了したと伝える
-        #value = client.search_left() # サーバーに行動内容を伝える
-
         value = client.get_ready() # 行動する前には必ず get_ready() する
-        if muki == "down": # もしmukiがdownなら
-            if value[7] != 2 or value[7] == 3: # もし自分の下がブロックではないなら またはアイテムなら
-                value = client.walk_down() # 下に行く    
-                rannsuu = rannsuu + purasu
-            elif value[3] != 2 or value[3] == 3: # もし自分の下がブロックで左がブロックではないなら
-                value = client.walk_left() # 左に行く 
-                muki = "left"
-            elif value[5] != 2 or value[5] == 3: # もし左と下がブロックで右がブロックでないなら右に行く
-                value = client.walk_right()
-                muki = "right"
-            else: # もし右と左と下がブロックなら上にいく
+        rand  = random.randint(0,3)
+
+        if turn == 10: # もしturnが10なら
+            if rand == 0: #　もしrandが0なら上にいく
                 value = client.walk_up()
                 muki = "up"
+                turn = 0
+            elif rand == 1: #　もしrandが1なら右にいく
+                value = client.walk_right()
+                muki = "right"
+                turn = 0
+            elif rand == 2: #　もしrandが2なら左にいく
+                value = client.walk_left()
+                muki ="left"
+                turn = 0
+            elif rand == 3: #　もしrandが3なら上にいく
+                value = client.walk_down()
+                muki = "down" 
+                turn = 0
+
+        elif muki == "down": # もしmukiがdownなら
+            if value[7] != 2 or value[7] == 3: # もし自分の下がブロックではないなら またはアイテムなら
+                value = client.walk_down() # 下に行く   
+                turn += 1 
+            elif value[3] != 2 or value[3] == 3: # もし自分の下がブロックで左がブロックではないなら
+                value = client.walk_left()
+                muki = "left"
+                turn += 1
+            elif value[5] != 2 or value[5] == 3: # もし左と下がブロックで右がブロックでないなら右に行く
+                value = client.walk_right() # 右に行く  
+                muki = "right"
+                turn += 1 
+            else: # もし右と左と下がブロックなら上にいく
+                value = client.walk_up() # 上に行く
+                muki = "up" 
+                turn += 1 
+
         elif muki == "up": # もしmukiがupなら
-            if value[1] != 2 or value[1] == 3: # もし自分の上がブロックではないなら 
-                value = client.walk_up() # 上に行く   
-            elif value[5] != 2 or value[5] == 3: # もし上がブロックで右がブロックでないなら
-                value = client.walk_right() # 右に行く
+            if value[1] != 2 or value[1] == 3: # もし自分の上がブロックではないなら    
+                value = client.walk_up() # 上に行く    
+                turn += 1   
+            elif value[5] != 2 or value[5] == 3: # もし上がブロックで右がブロックでないなら     
+                value = client.walk_right() # 右に行く    
+                turn += 1 
                 muki = "right"
             elif value[3] != 2 or value[3] == 3: # もし上と右がブロックで左がブロックではないなら左に行く
                 value = client.walk_left()
                 muki = "left"
+                turn
             else: # もし上も左も右もブロックなら下に行く
                 value = client.walk_down()
                 muki = "down"
