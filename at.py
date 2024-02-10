@@ -26,7 +26,10 @@ def main():
 
     while(True):
         value = client.get_ready() # 行動する前には必ず get_ready() する
-        rand  = random.randint(0,3)
+        print(turn)
+        print(muki)
+        rand = random.randint(0,3)
+        print(rand)
 
         if turn == 5: # もしturnが10なら
             turn = 0
@@ -42,27 +45,46 @@ def main():
                     muki = "left"
                 elif value[7] != 2:
                     value = client.walk_down()   
-                    muki ="duwn" 
+                    muki ="down" 
             elif rand == 1: #　もしrandが1なら右にいく
                 if value[5] != 2:
                     value = client.walk_right()
                     muki = "right"
-                if value[1] != 2:
-                   value = client.walk_up
-                   muki = "up"
+                elif value[1] != 2:
+                    value = client.walk_up()
+                    muki = "up"
                 elif value[3] != 2:
                     value = client.walk_left()    
-                    muki = "left"
+                    muki = "left"    
                 elif value[7] != 2:
-                       
-            elif rand == 2: #　もしrandが2なら左にいく
-                if value[3] != 2:
-                    value = client.walk_left()
-                    muki ="left"
-            elif rand == 3: #　もしrandが3なら上にいく
+                    value = client.walk_down()
+                    muki = "down"
+            elif rand == 2: # もしrandが１なら下に行く
                 if value[7] != 2:
                     value = client.walk_down()
-                    muki = "down" 
+                    muki = "down"
+                elif value[1] != 2:
+                    value = client.walk_up()
+                    muki = "up"
+                elif value[5] != 2:
+                    value = client.walk_right()
+                    muki = "right"
+                elif value[3] != 2:
+                    value = client.walk_left()
+                    muki = "left"           
+            elif rand == 3: # もしrandが3なら下に行く
+                if value[3] != 2:
+                    value = client.left()
+                    muki = "left"
+                elif value[7] != 2:
+                    value = client.walk_down()
+                    muki = "down"
+                elif value[5] != 2:
+                    value = client.walk_right()
+                    muki = "right"
+                elif value[1] != 2:
+                    value = client.walk_up()
+                    muki = "up"
 
         elif muki == "down": # もしmukiがdownなら
             turn += 1 
