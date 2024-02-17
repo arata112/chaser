@@ -26,52 +26,15 @@ def main():
 
     while(True):
         value = client.get_ready() # 行動する前には必ず get_ready() する
-        print(muki)
-        print(turn)
-
-        if value[1] == 1: # もし上がアイテムなら
-            value = client.put_up() # 上に行く
-        elif value[3] == 1:
-            value = client.put_left()
-        elif value[5] == 1:
-            value = client.put_right()
-        elif value[7] == 1:
-            value = client.put_down()
-
-        if value[0] == 1 and value[7] != 2: # 左上に敵がいるかつ下がブロックではないなら
-            value = client.walk_down() #　下に行く
-        elif value[0] == 3 and value[5] != 2: # 左上に敵があるかつ右がブロックではないなら
-            value = client.walk_right() #  左に行く       
 
         if value[1] == 3: # もし上がアイテムなら
-            value = client.walk_up() # 上に行く
+            value = client.walk_up() # 上に行く 
         elif value[3] == 3:
             value = client.walk_left()
         elif value[5] == 3:
             value = client.walk_right()
         elif value[7] == 3:
-            value = client.walk_down()
-        elif value[0] == 3 and value[1] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
-            value = client.walk_up() #　上に行く
-        elif value[0] == 3 and value[3] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_left() #  左に行く
-        elif value[2] == 3 and value[1] != 2: # 右上にアイテムがあるかつ上がブロックではないなら
-            value = client.walk_up() #　上に行く
-        elif value[2] == 3 and value[5] != 2: # 右上にアイテムがあるかつ右がブロックではないなら
-            value = client.walk_right() #  右に行く
-        elif value[6] == 3 and value[7] != 2: # 左下にアイテムがあるかつ下がブロックではないなら
-            value = client.walk_down() #　上に行く
-        elif value[6] == 3 and value[3] != 2: # 左下にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_left() #  左に行く        
-        elif value[8] == 3 and value[7] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
-            value = client.walk_down() #　上に行く
-        elif value[8] == 3 and value[5] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_right() #  左に行く
-                   
-              
-    
-
-                       
+            value = client.walk_down()           
         else: # 上も下も右もひだりもアイテムではないなら
 
             rand = random.randint(0,3)
