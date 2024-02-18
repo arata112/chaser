@@ -39,11 +39,11 @@ def main():
             value = client.put_down()
 
         if value[0] == 1 and value[7] != 2: # 左上に敵がいるかつ下がブロックではないなら
-            value = client.walk_down() #　下に行く
+            value = client.walk_down() #　下に行くcd
         elif value[0] == 3 and value[5] != 2: # 左上に敵があるかつ右がブロックではないなら
             value = client.walk_right() #  左に行く       
 
-        if value[1] == 3: # もし上がアイテムなら
+        elif value[1] == 3: # もし上がアイテムなら
             value = client.walk_up() # 上に行く
         elif value[3] == 3:
             value = client.walk_left()
