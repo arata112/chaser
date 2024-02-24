@@ -29,8 +29,8 @@ def main():
         print(muki)
         print(turn)
 
-        if value[1] == 1: # もし上がアイテムなら
-            value = client.put_up() # 上に行く
+        if value[1] == 1: # もし上が敵なら
+            value = client.put_up() # 上にブロックをおく
         elif value[3] == 1:
             value = client.put_left()
         elif value[5] == 1:
@@ -39,9 +39,23 @@ def main():
             value = client.put_down()
 
         if value[0] == 1 and value[7] != 2: # 左上に敵がいるかつ下がブロックではないなら
-            value = client.walk_down() #　下に行くcd
-        elif value[0] == 3 and value[5] != 2: # 左上に敵があるかつ右がブロックではないなら
-            value = client.walk_right() #  左に行く       
+            value = client.walk_down() #　下に行く
+        elif value[0] == 1 and value[5] != 2: # 左上に敵があるかつ右がブロックではないなら
+            value = client.walk_right() #  右に行く
+        elif value[0] == 1 and value[5]== 2 and value[7] == 2: # 左上に敵があるかつ右がブロックではないなら
+            value = client.look_up()     
+        elif value[2] == 1 and value[3] != 2: # 右上に敵があるかつ左がブロックではないなら
+            value = client.walk_left()    
+        elif value[2] == 1 and value[7] != 2: # 左上に敵があるかつ右がブロックではないなら
+            value = client.walk_down()   
+        elif value[6] == 1 and value[1] != 2: # 左下に敵がいるかつ上がブロックではないなら
+            value = client.walk_up() #　上に行く
+        elif value[6] == 1 and value[5] != 2: # 左下に敵があるかつ右がブロックではないなら
+            value = client.walk_right() #  左に行く 
+        elif value[8] == 1 and value[1] != 2: # 右下に敵があるかつ左がブロックではないなら
+            value = client.walk_left()    
+        elif value[8] == 1 and value[3] != 2: # 右下に敵があるかつ左がブロックではないなら
+            value = client.walk_left()                     
 
         elif value[1] == 3: # もし上がアイテムなら
             value = client.walk_up() # 上に行く
