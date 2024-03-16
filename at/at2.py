@@ -36,7 +36,46 @@ def main():
                 value = client.put_up()
         else: # 乱数が2か3なら
             value = client.walk_up() # 上に行く
+    
+    def look_walk_down():
+        rand = random.randint(1,3) # 1から3の乱数を作る
+        if rand == 1: # もし乱数が1なら
+            value = client.look_down() # 下の3×3マスを調べる
+            if value[4] != 1: # もし2つ下が敵でなければ
+                value = client.get_ready()
+                value = client.walk_down()
+            else: # もし2つ下が敵なら
+                value = client.get_ready()
+                value = client.put_down()
+        else: # 乱数が2か3なら
+            value = client.walk_down() # 下に行く 
 
+    def look_walk_right():
+        rand = random.randint(1,3) # 1から3の乱数を作る
+        if rand == 1: # もし乱数が1なら
+            value = client.look_right() # 右の3×3マスを調べる
+            if value[4] != 1: # もし2つ右が敵でなければ
+                value = client.get_ready()
+                value = client.walk_right()
+            else: # もし2つ右が敵なら
+                value = client.get_ready()
+                value = client.put_right()
+        else: # 乱数が2か3なら
+            value = client.walk_right() # 右に行く
+
+    def look_walk_left():
+        rand = random.randint(1,3) # 1から3の乱数を作る
+        if rand == 1: # もし乱数が1なら
+            value = client.look_left() # 左の3×3マスを調べる
+            if value[4] != 1: # もし2つ左が敵でなければ
+                value = client.get_ready()
+                value = client.walk_left()
+            else: # もし2つ左が敵なら
+                value = client.get_ready()
+                value = client.put_left()
+        else: # 乱数が2か3なら
+            value = client.walk_left # 左に行く[
+                      
     while(True):
         value = client.get_ready() # 行動する前には必ず get_ready() する
         print(muki)
@@ -80,67 +119,33 @@ def main():
             look_walk_up() # 関数look_walk_upを呼び出す
             
         elif value[5] == 3: # もし右がアイテムなら
-            rand = random.randint(1,3) # 1から3の乱数を作る
-            if rand == 1: # もし乱数が1なら
-                value = client.look_right() # 右の3×3マスを調べる
-                if value[4] != 1: # もし2つ右が敵でなければ
-                    value = client.get_ready()
-                    value = client.walk_right()
-                else: # もし2つ右が敵なら
-                    value = client.put_right()
-            else: # 乱数が2か3なら
-                value = client.walk_right() # 右に行く
+            look_walk_right()
 
         elif value[3] == 3: # もし左がアイテムなら
-            rand = random.randint(1,3) # 1から3の乱数を作る
-            if rand == 1: # もし乱数が1なら
-                value = client.look_left() # 左の3×3マスを調べる
-                if value[4] != 1: # もし2つ左が敵でなければ
-                    value = client.get_ready()
-                    value = client.walk_left()
-                else: # もし2つ左が敵なら
-                    value = client.put_left()
-            else: # 乱数が2か3なら
-                value = client.walk_left() # 左に行く 
+            look_walk_left() 
 
         elif value[7] == 3: # もし下がアイテムなら
-            rand = random.randint(1,3) # 1から3の乱数を作る
-            if rand == 1: # もし乱数が1なら
-                value = client.look_down() # 下の3×3マスを調べる
-                if value[4] != 1: # もし2つ下が敵でなければ
-                    value = client.get_ready()
-                    value = client.walk_down()
-                else: # もし2つ下が敵なら
-                    value = client.put_down()
-            else: # 乱数が2か3なら
-                value = client.walk_down() # 下に行く                
+            look_walk_down()                
         
         elif value[0] == 3 and value[1] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
-            look_walk_up() # 関数walk_walk_upをよびだす
-        
+            look_walk_up() # 関数walk_walk_upをよびだす        
         elif value[0] == 3 and value[3] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_left() #  左に行く
-        elif value[2] == 3 and value[1] != 2: # 右上にアイテムがあるかつ上がブロックではないなら
-            value = client.walk_up() #　上に行く
+            look_walk_left() #  左に行く
+        elif value[2] == 3 and value[1] != 2:
+            look_walk_up() # 上に行く
         elif value[2] == 3 and value[5] != 2: # 右上にアイテムがあるかつ右がブロックではないなら
-            value = client.walk_right() #  右に行く
+            look_walk_right() #  右に行く    
         elif value[6] == 3 and value[7] != 2: # 左下にアイテムがあるかつ下がブロックではないなら
-            value = client.walk_down() #　上に行く
+            look_walk_down() #　下に行く
         elif value[6] == 3 and value[3] != 2: # 左下にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_left() #  左に行く        
+            look_walk_left() #  左に行く        
         elif value[8] == 3 and value[7] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
-            value = client.walk_down() #　上に行く
+            look_walk_down() #　下に行く
         elif value[8] == 3 and value[5] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
-            value = client.walk_right() #  左に行く
-                   
-              
-    
-
-                       
+            look_walk_right() #  右に行く
+                                       
         else: # 上も下も右もひだりもアイテムではないなら
-
             rand = random.randint(0,3)
-
             if turn == 5: # もしturnが10なら
                 turn = 0
                 if rand == 0: #　もしrandが0なら上にいく
