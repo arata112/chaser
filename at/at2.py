@@ -74,7 +74,7 @@ def main():
                 value = client.get_ready()
                 value = client.put_left()
         else: # 乱数が2か3なら
-            value = client.walk_left # 左に行く[
+            value = client.walk_left # 左に行く
                       
     while(True):
         value = client.get_ready() # 行動する前には必ず get_ready() する
@@ -142,7 +142,7 @@ def main():
         elif value[8] == 3 and value[7] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
             look_walk_down() #　下に行く
         elif value[8] == 3 and value[5] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
-            look_walk_right() #  右に行く
+            look_walk_right() #  右に行く       
                                        
         else: # 上も下も右もひだりもアイテムではないなら
             rand = random.randint(0,3)
