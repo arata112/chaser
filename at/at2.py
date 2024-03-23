@@ -30,7 +30,7 @@ def main():
             value = client.look_up() # 上の3×3マスを調べる
             if value[4] != 1: # もし2つ上が敵でなければ
                 value = client.get_ready()
-                value = client.walk_up()
+                value = client.walk_up()    
             else: # もし2つ上が敵なら
                 value = client.get_ready()
                 value = client.put_up()
@@ -74,7 +74,7 @@ def main():
                 value = client.get_ready()
                 value = client.put_left()
         else: # 乱数が2か3なら
-            value = client.walk_left # 左に行く
+            value = client.walk_left() # 左に行く
                       
     while(True):
         value = client.get_ready() # 行動する前には必ず get_ready() する
@@ -116,13 +116,22 @@ def main():
             value = client.look_up()                         
 
         elif value[1] == 3: # もし上がアイテムなら
-            look_walk_up() # 関数look_walk_upを呼び出す
+            if value[0] == 2 and value[2] == 2: # 左上がブロックかつ右上もブロックなら
+                value = client.put_up() # 上にブロックを置く
+            else: # でなければ
+                look_walk_up() # 関数look_walk_upを呼び出す
             
         elif value[5] == 3: # もし右がアイテムなら
-            look_walk_right()
+            if value[2] == 2 and value[8] == 2:
+                value = client.put_right()
+            else:         
+                look_walk_right()
 
         elif value[3] == 3: # もし左がアイテムなら
-            look_walk_left() 
+            if value[0] == 2 and value[6] == 2:
+                value = client.put_left()
+            else:    
+                look_walk_left() 
 
         elif value[7] == 3: # もし下がアイテムなら
             look_walk_down()                
