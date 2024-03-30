@@ -21,7 +21,7 @@ get_ready() → 行動関数 → get_ready() → ... の順で必ず処理を行
 def main():
     value = [] # フィールド情報を保存するリスト
     client = CHaser.Client() # サーバーと通信するためのインスタンス"
-    muki = "down" # mukiをdownにする
+    muki = "left" # mukiをdownにする
     turn = 0
 
     def look_walk_up():
@@ -134,7 +134,10 @@ def main():
                 look_walk_left() 
 
         elif value[7] == 3: # もし下がアイテムなら
-            look_walk_down()                
+            if value[6] == 2 and value[8] == 2:
+                value = client.put_down()
+            else: 
+                look_walk_down()                
         
         elif value[0] == 3 and value[1] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
             look_walk_up() # 関数walk_walk_upをよびだす        
@@ -154,116 +157,130 @@ def main():
             look_walk_right() #  右に行く       
                                        
         else: # 上も下も右もひだりもアイテムではないなら
+
+            rand = random.randint(0,1)
+            if rand == 0:
+                rand2 = random.randint(0,1)
+                if rand2 == 0:
+                    value = client.search_up() # 上９マスを調べる
+                    for i in range(9):
+                        if value[i] == 3:
+                            muki = "up"
+                    value = client.get_ready()
+
+
+            """
             rand = random.randint(0,3)
             if turn == 5: # もしturnが10なら
                 turn = 0
                 if rand == 0: #　もしrandが0なら上にいく
                     if value[1] != 2:
-                        value = client.walk_up()
+                        look_walk_up()
                         muki = "up"
                     elif value[5] != 2:
-                        value = client.walk_right()
+                        look_walk_right()
                         muki = "right"
                     elif value[3] != 2:
-                        value = client.walk_left()
+                        look_walk_left()
                         muki = "left"
                     elif value[7] != 2:
-                        value = client.walk_down()   
+                        look_walk_down()  
                         muki ="down" 
                 elif rand == 1: #　もしrandが1なら右にいく
                     if value[5] != 2:
-                        value = client.walk_right()
+                        look_walk_right()
                         muki = "right"
                     elif value[1] != 2:
-                        value = client.walk_up()
+                        look_walk_up()
                         muki = "up"
                     elif value[3] != 2:
-                        value = client.walk_left()    
+                        look_walk_left()    
                         muki = "left"    
                     elif value[7] != 2:
-                        value = client.walk_down()
+                        look_walk_down()
                         muki = "down"
                 elif rand == 2: # もしrandが１なら下に行く
                     if value[7] != 2:
-                        value = client.walk_down()
+                        look_walk_down()
                         muki = "down"
                     elif value[1] != 2:
-                        value = client.walk_up()
+                        look_walk_up()
                         muki = "up"
                     elif value[5] != 2:
-                        value = client.walk_right()
+                        look_walk_right()
                         muki = "right"
                     elif value[3] != 2:
-                        value = client.walk_left()
+                        look_walk_left()
                         muki = "left"           
                 elif rand == 3: # もしrandが3なら下に行く
                     if value[3] != 2:
-                        value = client.walk_left()
+                        look_walk_left()
                         muki = "left"
                     elif value[7] != 2:
-                        value = client.walk_down()
+                        look_walk_down()
                         muki = "down"
                     elif value[5] != 2:
-                        value = client.walk_right()
+                        look_walk_right()
                         muki = "right"
                     elif value[1] != 2:
-                        value = client.walk_up()
+                        look_walk_up()
                         muki = "up"
+            """
 
-            elif muki == "down": # もしmukiがdownなら
+            if muki == "down": # もしmukiがdownなら
                 turn += 1 
                 if value[7] != 2: # もし自分の下がブロックではないなら またはアイテムなら
-                    value = client.walk_down() # 下に行く   
+                    look_walk_down() # 下に行く   
                 elif value[3] != 2: # もし自分の下がブロックで左がブロックではないなら
-                    value = client.walk_left()
+                    look_walk_left()
                     muki = "left"
                 elif value[5] != 2: # もし左と下がブロックで右がブロックでないなら右に行く
-                    value = client.walk_right() # 右に行く  
+                    look_walk_right() # 右に行く  
                     muki = "right" 
                 else: # もし右と左と下がブロックなら上にいく
-                    value = client.walk_up() # 上に行く
+                    look_walk_up() # 上に行く
                     muki = "up"  
 
             elif muki == "up": # もしmukiがupなら
                 turn += 1 
                 if value[1] != 2: # もし自分の上がブロックではないなら    
-                    value = client.walk_up() # 上に行く     
+                    look_walk_up() # 上に行く     
                 elif value[5] != 2: # もし上がブロックで右がブロックでないなら     
-                    value = client.walk_right() # 右に行く    
+                    look_walk_right() # 右に行く    
                     muki = "right"
                 elif value[3] != 2 : # もし上と右がブロックで左がブロックではないなら左に行く
-                    value = client.walk_left()
+                    look_walk_left()
                     muki = "left"
                 else: # もし上も左も右もブロックなら下に行く
-                    value = client.walk_down()
+                    look_walk_down()
                     muki = "down"
 
             elif muki == "right": # もしmukiがrightなら
                 turn += 1 
                 if value[5] != 2: # もし自分の右がブロックではないなら 
-                    value = client.walk_right() # 右に行く 
+                    look_walk_right() # 右に行く 
                 elif value[7] != 2 : # 右がブロックで下がブロックでないなら
-                    value = client.walk_down() # 下に行く
+                    look_walk_down() # 下に行く
                     muki = "down"
                 elif value[1] != 2: # 右と下がブロックで上がブロックでないなら
-                    value = client.walk_up()
+                    look_walk_up()
                     muki = "up"
                 else: # 右も上も下もブロックなら
-                    value = client.walk_left()
+                    look_walk_left()
                     muki = "left"
 
             elif muki == "left": # もしmukiがleftなら
                 turn += 1 
                 if value[3] != 2: # もし自分の左がブロックではないなら 
-                    value = client.walk_left() # 左に行く   
+                    look_walk_left() # 左に行く   
                 elif value[1] != 2: # 左がブロックで上がブロックでないなら
-                    value = client.walk_up() # 上に行く 
+                    look_walk_up() # 上に行く 
                     muki = "up"
                 elif value[7] != 2: #左も上もブロックで下がブロックでないなら
-                    value = client.walk_down() # 下に行く 
+                    look_walk_down() # 下に行く 
                     muki = "down"
                 else: # 左も上も下もブロックなら
-                    value = client.walk_right() # 右に行く
+                    look_walk_right() # 右に行く
                     muki = "right"
 """
 python sample.py のようにこのファイルを直接実行すると，
