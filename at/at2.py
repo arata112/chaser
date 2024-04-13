@@ -23,6 +23,7 @@ def main():
     client = CHaser.Client() # サーバーと通信するためのインスタンス"
     muki = "left" # mukiをdownにする
     turn = 100
+    print(turn)
 
     def look_walk_up():
         rand = random.randint(1,3) # 1から3の乱数を作る
@@ -30,11 +31,9 @@ def main():
             value = client.look_up() # 上の3×3マスを調べる
             if value[4] != 1: # もし2つ上が敵でなければ
                 value = client.get_ready()
-                turn = turn - 1  # get_readyをしたらturnを1減らす
                 value = client.walk_up()    
             else: # もし2つ上が敵なら
                 value = client.get_ready()
-                turn = turn - 1  # get_readyをしたらturnを1減らす
                 value = client.put_up()
         else: # 乱数が2か3なら
             value = client.walk_up() # 上に行く
@@ -45,11 +44,9 @@ def main():
             value = client.look_down() # 下の3×3マスを調べる
             if value[4] != 1: # もし2つ下が敵でなければ
                 value = client.get_ready()
-                turn = turn - 1  # get_readyをしたらturnを1減らす
                 value = client.walk_down()
             else: # もし2つ下が敵なら
                 value = client.get_ready()
-                turn = turn - 1  # get_readyをしたらturnを1減らす
                 value = client.put_down()
         else: # 乱数が2か3なら
             value = client.walk_down() # 下に行く 
@@ -154,7 +151,7 @@ def main():
             look_walk_down() #　下に行く
         elif value[6] == 3 and value[3] != 2: # 左下にアイテムがあるかつ左がブロックではないなら
             look_walk_left() #  左に行く        
-        elif value[8] == 3 and value[7] != 2: # 左上にアイテムがあるかつ上がブロックではないなら
+        elif value[8] == 3 and value[7] != 2: # 上にアイテムがあるかつ上がブロックではないなら
             look_walk_down() #　下に行く
         elif value[8] == 3 and value[5] != 2: # 左上にアイテムがあるかつ左がブロックではないなら
             look_walk_right() #  右に行く       
